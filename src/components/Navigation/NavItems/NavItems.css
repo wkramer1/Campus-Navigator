@@ -10,5 +10,6 @@
 @media (max-width: 767.98px) {
     .NavItems {
         flex-direction: column;
+        height: auto;
     }
 }

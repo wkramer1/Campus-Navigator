@@ -16,6 +16,11 @@ import Login from "./containers/LoginReg/Login";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 class App extends Component {
+    constructor (props) {
+        super(props);
+        this.state = {authUser: null};
+    }
+    
     render() {
         library.add(faUpload);
         return (

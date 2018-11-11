@@ -10,37 +10,31 @@ import Content from "../Content/Content";
 import classes from "./LoginReg.css";
 
 import {firebase, auth} from '../../firebase';
-import firebaseui from 'firebaseui';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 class LoginPage extends Component {
     const 
     render() {
-        const ui = new firebaseui.auth.AuthUI(auth);
         const uiConfig = {
             callbacks: {
-              signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-                // User successfully signed in.
-                // Return type determines whether we continue the redirect automatically
-                // or whether we leave that to developer to handle.
-                return true;
-              },
-              uiShown: function() {
-                // The widget is rendered.
-              }
+                uiShown: function() {
+                    document.getElementById('loader').style.display = 'none';
+                }
             },
+            // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
             signInSuccessUrl: '/upload',
+            // We will display Google and Email as auth providers.
             signInOptions: [
-              // Leave the lines as is for the providers you want to offer your users.
+              firebase.auth.GoogleAuthProvider.PROVIDER_ID,
               firebase.auth.EmailAuthProvider.PROVIDER_ID
             ]
           };
 
-          ui.start('#login-container', uiConfig);
-
         return (
             <div className={classes.Login}>
                 <Content title="Login">
-                    <div id="login-container"></div>
+                    <div id="loader">Loading...</div>
+                    <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
                 </Content>
             </div>
         );

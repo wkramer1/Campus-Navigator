@@ -7,12 +7,14 @@ WORKDIR /usr/src
 # package.json AND package-lock.json are copied
 COPY package*.json ./
 
+# Runs npm install for dependencies
 RUN npm install
-# If you are building your code for production
-# RUN npm install --only=production
 
 # Bundle app source
 COPY . .
 
+# Map to localhost:3000
 EXPOSE 3000
+
+# Starts server
 CMD [ "npm", "start" ]
